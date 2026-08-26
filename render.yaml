@@ -1,0 +1,16 @@
+# F1: lives in the SECOND repo (jmtuley/workflows2, branch main), wired to a
+# second Blueprint, claiming a workflow the first Blueprint already owns.
+# Expect: workflow "wf-minimal" is already managed by another Blueprint
+#
+# repo and branch are pinned to workflows-demo on purpose. Omitting them would
+# resolve to workflows2, which is empty, so the plan would also want to repoint
+# the workflow's build config and F2 could no longer isolate the ownership
+# question from an unrelated build change.
+services:
+  - type: workflow
+    name: wf-minimal
+    runtime: node
+    repo: https://github.com/jmtuley/workflows-demo
+    branch: master
+    region: oregon
+    startCommand: npm start
